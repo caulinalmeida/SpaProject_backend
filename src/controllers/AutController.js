@@ -5,6 +5,12 @@ const authConfig = require('../config/auth.json');
 
 module.exports = {
     async store(req, res) {
+        function generateToken(params = {}){
+            return jwt.sign(params, authConfig.secret, {
+                expiresIn: 86400
+            } );
+        }
+
         const {email, senha} = req.body;
 
         const user = await Func.findOne({email}).select('+senha');
@@ -19,8 +25,10 @@ module.exports = {
 
         user.senha = undefined;
 
-        const token = jwt.sign({id: user.id}, authConfig.secret, {expiresIn: 86400} );
 
-        res.send({user, token});
+        res.send({
+            user, 
+            token: generateToken({id: user.id})
+        });
     }
 }
