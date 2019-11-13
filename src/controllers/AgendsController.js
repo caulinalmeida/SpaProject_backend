@@ -14,5 +14,11 @@ module.exports = {
         })
 
         return res.json(agend);
+    },
+
+    async index(req,res){
+        const agendaments = await Agends.find();
+
+        return res.json(agendaments);
     } 
 }

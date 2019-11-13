@@ -11,5 +11,6 @@ routes.post('/cadastro', CadController.store);
 routes.post('/autenticacao', AutController.store);
 routes.post('/agends', AgendsController.store);
 routes.get('/verify', authMiddleware, VerifyController.store);
+routes.get('/listagem', AgendsController.index);
 
 module.exports = routes;
